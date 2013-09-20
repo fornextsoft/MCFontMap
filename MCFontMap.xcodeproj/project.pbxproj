@@ -9,13 +9,21 @@
 /* Begin PBXBuildFile section */
 		AAB82F1917ED11630097A027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F1817ED11630097A027 /* Foundation.framework */; };
 		AAB82F1E17ED11630097A027 /* MCFontMap.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F1D17ED11630097A027 /* MCFontMap.h */; };
-		AAB82F2017ED11630097A027 /* MCFontMap.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB82F1F17ED11630097A027 /* MCFontMap.m */; };
 		AAB82F2717ED11630097A027 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F2617ED11630097A027 /* XCTest.framework */; };
 		AAB82F2817ED11630097A027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F1817ED11630097A027 /* Foundation.framework */; };
-		AAB82F2A17ED11630097A027 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F2917ED11630097A027 /* UIKit.framework */; };
 		AAB82F2D17ED11630097A027 /* libMCFontMap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F1517ED11630097A027 /* libMCFontMap.a */; };
 		AAB82F3317ED11630097A027 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAB82F3117ED11630097A027 /* InfoPlist.strings */; };
 		AAB82F3517ED11630097A027 /* MCFontMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB82F3417ED11630097A027 /* MCFontMapTests.m */; };
+		AAB82F5317ED13B60097A027 /* MCFont.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB82F4C17ED13B60097A027 /* MCFont.m */; };
+		AAB82F5417ED13B60097A027 /* MCFontMapLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB82F4E17ED13B60097A027 /* MCFontMapLabel.m */; };
+		AAB82F5517ED13B60097A027 /* MCFontMapReader.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB82F5017ED13B60097A027 /* MCFontMapReader.m */; };
+		AAB82F5617ED13B60097A027 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB82F5217ED13B60097A027 /* XMLReader.m */; };
+		AAB82F5917ED14670097A027 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F5817ED14670097A027 /* UIKit.framework */; };
+		AAB82F5B17ED146F0097A027 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F5A17ED146F0097A027 /* SpriteKit.framework */; };
+		AAB82F5D17ED15120097A027 /* MilitaryFont.fntpkg in Resources */ = {isa = PBXBuildFile; fileRef = AAB82F5C17ED15120097A027 /* MilitaryFont.fntpkg */; };
+		AAB82F5E17ED152E0097A027 /* MCFont.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F4B17ED13B60097A027 /* MCFont.h */; };
+		AAB82F5F17ED152E0097A027 /* MCFontMapLabel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F4D17ED13B60097A027 /* MCFontMapLabel.h */; };
+		AAB82F6017ED152E0097A027 /* MCFontMapReader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F4F17ED13B60097A027 /* MCFontMapReader.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +43,9 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				AAB82F5E17ED152E0097A027 /* MCFont.h in CopyFiles */,
+				AAB82F5F17ED152E0097A027 /* MCFontMapLabel.h in CopyFiles */,
+				AAB82F6017ED152E0097A027 /* MCFontMapReader.h in CopyFiles */,
 				AAB82F1E17ED11630097A027 /* MCFontMap.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -46,13 +57,24 @@
 		AAB82F1817ED11630097A027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AAB82F1C17ED11630097A027 /* MCFontMap-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MCFontMap-Prefix.pch"; sourceTree = "<group>"; };
 		AAB82F1D17ED11630097A027 /* MCFontMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCFontMap.h; sourceTree = "<group>"; };
-		AAB82F1F17ED11630097A027 /* MCFontMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCFontMap.m; sourceTree = "<group>"; };
 		AAB82F2517ED11630097A027 /* MCFontMapTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MCFontMapTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB82F2617ED11630097A027 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		AAB82F2917ED11630097A027 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		AAB82F3017ED11630097A027 /* MCFontMapTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MCFontMapTests-Info.plist"; sourceTree = "<group>"; };
 		AAB82F3217ED11630097A027 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AAB82F3417ED11630097A027 /* MCFontMapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCFontMapTests.m; sourceTree = "<group>"; };
+		AAB82F4B17ED13B60097A027 /* MCFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCFont.h; sourceTree = "<group>"; };
+		AAB82F4C17ED13B60097A027 /* MCFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCFont.m; sourceTree = "<group>"; };
+		AAB82F4D17ED13B60097A027 /* MCFontMapLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCFontMapLabel.h; sourceTree = "<group>"; };
+		AAB82F4E17ED13B60097A027 /* MCFontMapLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCFontMapLabel.m; sourceTree = "<group>"; };
+		AAB82F4F17ED13B60097A027 /* MCFontMapReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCFontMapReader.h; sourceTree = "<group>"; };
+		AAB82F5017ED13B60097A027 /* MCFontMapReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCFontMapReader.m; sourceTree = "<group>"; };
+		AAB82F5117ED13B60097A027 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		AAB82F5217ED13B60097A027 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		AAB82F5717ED13EA0097A027 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		AAB82F5817ED14670097A027 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AAB82F5A17ED146F0097A027 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		AAB82F5C17ED15120097A027 /* MilitaryFont.fntpkg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MilitaryFont.fntpkg; sourceTree = "<group>"; };
+		AAB82F6117ED159E0097A027 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB82F5B17ED146F0097A027 /* SpriteKit.framework in Frameworks */,
+				AAB82F5917ED14670097A027 /* UIKit.framework in Frameworks */,
 				AAB82F1917ED11630097A027 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,7 +94,6 @@
 			files = (
 				AAB82F2717ED11630097A027 /* XCTest.framework in Frameworks */,
 				AAB82F2D17ED11630097A027 /* libMCFontMap.a in Frameworks */,
-				AAB82F2A17ED11630097A027 /* UIKit.framework in Frameworks */,
 				AAB82F2817ED11630097A027 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,9 +123,10 @@
 		AAB82F1717ED11630097A027 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAB82F5A17ED146F0097A027 /* SpriteKit.framework */,
+				AAB82F5817ED14670097A027 /* UIKit.framework */,
 				AAB82F1817ED11630097A027 /* Foundation.framework */,
 				AAB82F2617ED11630097A027 /* XCTest.framework */,
-				AAB82F2917ED11630097A027 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -111,7 +135,14 @@
 			isa = PBXGroup;
 			children = (
 				AAB82F1D17ED11630097A027 /* MCFontMap.h */,
-				AAB82F1F17ED11630097A027 /* MCFontMap.m */,
+				AAB82F4B17ED13B60097A027 /* MCFont.h */,
+				AAB82F4C17ED13B60097A027 /* MCFont.m */,
+				AAB82F4D17ED13B60097A027 /* MCFontMapLabel.h */,
+				AAB82F4E17ED13B60097A027 /* MCFontMapLabel.m */,
+				AAB82F4F17ED13B60097A027 /* MCFontMapReader.h */,
+				AAB82F5017ED13B60097A027 /* MCFontMapReader.m */,
+				AAB82F5117ED13B60097A027 /* XMLReader.h */,
+				AAB82F5217ED13B60097A027 /* XMLReader.m */,
 				AAB82F1B17ED11630097A027 /* Supporting Files */,
 			);
 			path = MCFontMap;
@@ -120,7 +151,10 @@
 		AAB82F1B17ED11630097A027 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AAB82F5C17ED15120097A027 /* MilitaryFont.fntpkg */,
 				AAB82F1C17ED11630097A027 /* MCFontMap-Prefix.pch */,
+				AAB82F5717ED13EA0097A027 /* README */,
+				AAB82F6117ED159E0097A027 /* LICENSE */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -214,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAB82F3317ED11630097A027 /* InfoPlist.strings in Resources */,
+				AAB82F5D17ED15120097A027 /* MilitaryFont.fntpkg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,7 +259,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAB82F2017ED11630097A027 /* MCFontMap.m in Sources */,
+				AAB82F5517ED13B60097A027 /* MCFontMapReader.m in Sources */,
+				AAB82F5417ED13B60097A027 /* MCFontMapLabel.m in Sources */,
+				AAB82F5617ED13B60097A027 /* XMLReader.m in Sources */,
+				AAB82F5317ED13B60097A027 /* MCFont.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +447,7 @@
 				AAB82F3A17ED11630097A027 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AAB82F3B17ED11630097A027 /* Build configuration list for PBXNativeTarget "MCFontMapTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +456,7 @@
 				AAB82F3D17ED11630097A027 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
