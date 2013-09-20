@@ -70,11 +70,11 @@
 		AAB82F5017ED13B60097A027 /* MCFontMapReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCFontMapReader.m; sourceTree = "<group>"; };
 		AAB82F5117ED13B60097A027 /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
 		AAB82F5217ED13B60097A027 /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
-		AAB82F5717ED13EA0097A027 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		AAB82F5717ED13EA0097A027 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README; path = MCFontMap/README; sourceTree = "<group>"; };
 		AAB82F5817ED14670097A027 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AAB82F5A17ED146F0097A027 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		AAB82F5C17ED15120097A027 /* MilitaryFont.fntpkg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MilitaryFont.fntpkg; sourceTree = "<group>"; };
-		AAB82F6117ED159E0097A027 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		AAB82F6117ED159E0097A027 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = MCFontMap/LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +104,8 @@
 		AAB82F0C17ED11630097A027 = {
 			isa = PBXGroup;
 			children = (
+				AAB82F5717ED13EA0097A027 /* README */,
+				AAB82F6117ED159E0097A027 /* LICENSE */,
 				AAB82F1A17ED11630097A027 /* MCFontMap */,
 				AAB82F2E17ED11630097A027 /* MCFontMapTests */,
 				AAB82F1717ED11630097A027 /* Frameworks */,
@@ -153,8 +155,6 @@
 			children = (
 				AAB82F5C17ED15120097A027 /* MilitaryFont.fntpkg */,
 				AAB82F1C17ED11630097A027 /* MCFontMap-Prefix.pch */,
-				AAB82F5717ED13EA0097A027 /* README */,
-				AAB82F6117ED159E0097A027 /* LICENSE */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
