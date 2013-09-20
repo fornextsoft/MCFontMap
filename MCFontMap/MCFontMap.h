@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XMLReader.h"
+#import "MCFontMapReader.h"
+#import "MCFont.h"
+#import "MCFontLabel.h"
 
-@interface MCFontMap : NSObject
 
-@end
+
