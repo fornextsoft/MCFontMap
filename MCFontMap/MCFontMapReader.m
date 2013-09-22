@@ -34,17 +34,14 @@
         kerns = [fontFile substringFromIndex:kernRange.location + kernRange.length];
         kernRange = [f rangeOfString:@"\nkernings"];
         fontData = [f substringToIndex:kernRange.location];
-     //   NSLog(@"kerns %@",kerns);
-      //  NSLog(@"fontdata %@",fontData);
     }
     NSArray * kernArray = [kerns componentsSeparatedByString:@"\n"];
-   //  NSLog(@"Kern count %i",kernArray.count);
 
     for (NSString*lineK in kernArray) {
         if([lineK rangeOfString:@"count="].length)continue;
         NSArray * la = [lineK componentsSeparatedByString:@" "];
         if(la.count <2)continue;
-   //     NSLog(@"LA %@",la);
+
         NSArray * first = [[la objectAtIndex:1]componentsSeparatedByString:@"="];
         NSArray * second = [[la objectAtIndex:2]componentsSeparatedByString:@"="];
         NSArray * amountArray = [[la objectAtIndex:3]componentsSeparatedByString:@"="];
@@ -60,11 +57,10 @@
 
         [self.kerningDict setObject:amount forKey:key];
     }
-  //  NSLog(@"Kern dict %@",self.kerningDict);
    
     //Create an array of characters
     NSArray* charsArray = [fontData componentsSeparatedByString:@"\n"];
-  //  NSLog(@"Chars Array count %i",charsArray.count);
+
     self.fontDict = [[NSMutableDictionary alloc]init];
     //Step the array of character info
     for (NSString * str in charsArray) {
@@ -111,84 +107,6 @@
 }
 
 
--(void)autoKern
-{
-    return;
-    NSNumber * amount = [NSNumber numberWithInt:-10];
-    char fk =105;
-    char lk = 110;
-    int kv =(fk<<16) | (lk&0xffff);
-    NSString * key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-
-    
-    amount = [NSNumber numberWithInt:-6];
-    fk =105;
-    lk = 119;
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-    
-    fk =73;
-    lk = 78;
-    amount = [NSNumber numberWithInt:-5];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-
-    fk =110;
-    lk = 32;
-    amount = [NSNumber numberWithInt:-7];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-    
-    fk =78;
-    lk = 73;
-    amount = [NSNumber numberWithInt:-5];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-    
- 
-    
-    fk =111;
-    lk = 108;
-    amount = [NSNumber numberWithInt:-4];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-
-    
-    fk =108;
-    lk = 111;
-    amount = [NSNumber numberWithInt:-4];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-    
-    fk =100;
-    lk = 108;
-    amount = [NSNumber numberWithInt:-3];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-
-    
-    fk =108;
-    lk = 108;
-    amount = [NSNumber numberWithInt:-5];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-
-    fk =111;
-    lk = 108;
-    amount = [NSNumber numberWithInt:2];
-    kv =(fk<<16) | (lk&0xffff);
-    key = [NSString stringWithFormat:@"%i",kv];
-    [self.kerningDict setObject:amount forKey:key];
-}
 
 -(id)initWithFontPackageNamed:(NSString*)fontPackageName isXML:(BOOL)xml
 {
@@ -215,7 +133,7 @@
                 //It's sparrow we'll read it
                 NSError *error = nil;
                 NSDictionary * fd = [XMLReader dictionaryForXMLData:xmlData error:&error];
-                NSLog(@"Error %@",error);
+
                 //reading from xml to nsdictionary is messy but grab the chars here
                 NSDictionary * charDict = [[fd objectForKey:@"font"]objectForKey:@"chars"];
                 //init the instance's font dictionary
@@ -231,16 +149,12 @@
                 [self.fontData addEntriesFromDictionary:[[fd objectForKey:@"font"] objectForKey:@"common"]];
                 [self.fontData addEntriesFromDictionary:[[fd objectForKey:@"font"] objectForKey:@"pages"]];
                 NSMutableDictionary *kd = [[NSMutableDictionary alloc]initWithDictionary:[[fd objectForKey:@"font"] objectForKey:@"kernings"] copyItems:YES];
-                
-                [self autoKern];
-              //  NSLog(@"Kerning %@",[kd objectForKey:@"kerning"]);
+
                 for (NSDictionary*pair in [kd objectForKey:@"kerning"]) {
-                   // NSLog(@"Pair %@",pair);
                     NSNumber * amount = [NSNumber numberWithInt:[[pair objectForKey:@"amount"]intValue]];
                     char fk =[[pair objectForKey:@"first"]intValue];
                     char lk = [[pair objectForKey:@"second"]intValue];
                     int kv =(fk<<16) | (lk&0xffff);
-                    NSLog(@"Key %i",kv);
                     NSString * key = [NSString stringWithFormat:@"%i",kv];
                     [self.kerningDict setObject:amount forKey:key];
                 }
@@ -250,7 +164,6 @@
             else{
                 
                 [self parseCocos2d:fontPackageName];
-                [self autoKern];
             }
             
             
@@ -259,7 +172,6 @@
         else{
 
             [self parseCocos2d:fontPackageName];
-            [self autoKern];
             //cocos2d reader here
         }
 

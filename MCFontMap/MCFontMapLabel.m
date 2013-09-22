@@ -14,7 +14,6 @@
 {
     
     NSDictionary * fontInfoDict = [self.font fontInformationDictionary];
-   // NSLog(@"%@",fontInfoDict);
     float lh = [[fontInfoDict objectForKey:@"lineHeight"]floatValue];
     float fps = [[fontInfoDict objectForKey:@"size"]floatValue];
     
@@ -37,7 +36,6 @@
     
     for (NSString*ch in chars) {
         NSDictionary * chr = [self.font dictionaryForCharacter:ch];
-      //  NSLog(@"Ch %@",chr);
         SKTexture * spTexture = [SKTexture textureWithImage:[chr objectForKey:@"Image"]];
         float w=0,h=0;
         w = [[chr objectForKey:@"width"]floatValue];
@@ -94,7 +92,6 @@
         }
         NSDictionary * sprites = [self createSpritesFromChars:chars fontSize:size];
 
-        NSLog(@"Return Dict %@",sprites);
         float scale = [[sprites objectForKey:@"Scale"]floatValue];
         float xpoint=0;
         
@@ -102,8 +99,7 @@
         float labelWidth =([[sprites objectForKey:@"Total Width"]floatValue]+[[sprites objectForKey:@"Space Size"]floatValue])*scale;
         
         xpoint -= (labelWidth/2)-(([[sprites objectForKey:@"Space Size"]floatValue]*scale)/2);
-        
-        NSLog(@"XPoint %f",xpoint);
+
         
         if(maxWidth ==0){
             self.size = CGSizeMake(labelWidth,labelHeight);
@@ -115,15 +111,11 @@
                 char nextChar,lastChar;
                 int kern=0;
                 
-                /*if((index+1 != string.length) && index){
+                if((index+1 != string.length) && index){
                      lastChar = [string characterAtIndex:index];
                     nextChar = [string characterAtIndex:index+1];
-                    int kv =(nextChar<<16) | (lastChar&0xffff);
-                  //  NSString * key = [NSString stringWithFormat:@"%@%c",theSprite.name,nextChar];
                     kern = [font kerningForFirst:[NSString stringWithFormat:@"%c",lastChar] second:[NSString stringWithFormat:@"%c",nextChar]];
-                   // NSLog(@"Kern %i",kern);
-                }*/
-               // kern =0; //Remove this, it's only set to 0 for testing
+                }
                 CGPoint pos =CGPointMake((xpoint+(kern))-(([[chr objectForKey:@"xOffset"]floatValue]*theSprite.xScale)/2),
                                          CGRectGetMidX(self.frame)-(([[chr objectForKey:@"yOffset"]floatValue]*theSprite.yScale)/2));
 
@@ -167,7 +159,6 @@
             
             NSLog(@"LineCount %i",lineCount);
         }
-        NSLog(@"Self.size %@",NSStringFromCGSize(self.size));
     }
     
     return self;
