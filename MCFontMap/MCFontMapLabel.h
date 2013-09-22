@@ -15,5 +15,21 @@
 
 
 @interface MCFontMapLabel : SKSpriteNode
+{
+    float width;
+    float height;
+    
+}
+
+
+@property (nonatomic,strong) MCFont * font;
+@property (nonatomic,strong) NSString * string;
+@property (nonatomic) float fontSize;
+
+//Create a label with a fontmapped font, with a mximum width of maxWidth. for a single line label with no maximum width set maxWidth =0
+-(id)initWithString:(NSString*)string font:(MCFont*)font fontSize:(float)size maxWidth:(float)maxWidth;
+
+
+
 
 @end

@@ -19,11 +19,12 @@
 
 
 @property (nonatomic,strong) NSMutableDictionary * fontDict;
+@property (nonatomic,strong) NSMutableDictionary * kerningDict;
 @property (nonatomic,strong) UIImage * fontImage;
 @property (nonatomic,strong) NSMutableDictionary * fontData;
 
 
 -(id)initWithFontPackageNamed:(NSString*)fontPackageName isXML:(BOOL)xml;
-
+-(void)setValue:(id)value forKey:(NSString *)key forCharacter:(NSString*)ch;
 
 @end

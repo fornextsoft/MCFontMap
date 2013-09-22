@@ -8,6 +8,19 @@
 
 #import "MCFont.h"
 
+float getXRelevantToWidth(float width,float xPos)
+{
+
+    return (width/2)+(xPos/1.338);
+}
+
+float getYRelevantToHeight(float height,float yPos)
+{
+    
+    return (height*2.70)+(yPos/1.25);
+}
+
+
 @implementation MCFont
 
 
@@ -20,6 +33,9 @@
         }
         
         reader = [[MCFontMapReader alloc]initWithFontPackageNamed:fontName isXML:xml];
+        self.kern = YES;
+        self.fontColor = [UIColor clearColor];
+        self.fontColorBlend =0;
     }
     
     return self;
@@ -37,7 +53,47 @@
     return [reader.fontDict objectForKey:ch];
 }
 
+-(int)kerningForFirst:(NSString*)first second:(NSString*)second;
+{
+    if(!self.kern) return 0;
+    
+    char fk =[first characterAtIndex:0];
+    char lk = [second characterAtIndex:0];
+    int kv =(fk<<16) | (lk&0xffff);
+    
+    NSString * key = [NSString stringWithFormat:@"%i",kv];
+    
+    NSNumber * amount = [reader.kerningDict objectForKey:key];
+    
+    return [amount intValue];
+    
+}
 
+
+-(void)setFontColor:(UIColor *)fontColor
+{
+    _fontColor = fontColor;
+    for (NSString*sp in reader.fontDict) {
+        [reader setValue:fontColor forKey:@"Color" forCharacter:sp];
+        [reader setValue:[NSNumber numberWithFloat:self.fontColorBlend] forKey:@"Blend" forCharacter:sp];
+    }
+}
+
+-(UIColor*)fontColor
+{
+    return _fontColor;
+}
+
+-(void)setFontColorBlend:(float)fontColorBlend
+{
+    _fontColorBlend = fontColorBlend;
+    self.fontColor = self.fontColor;
+}
+
+-(float)fontColorBlend
+{
+    return _fontColorBlend;
+}
 
 -(NSString*)description
 {

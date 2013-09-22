@@ -21,13 +21,50 @@
     //This will break the file data in half assuming it was made with bgGlyph this should work
     //If the font file information is placed at the end of the document this will not work.
     NSRange rangeOf = [fontFile rangeOfString:@"\nchar "];
-
+    NSRange kernRange= [fontFile rangeOfString:@"\nkernings"];
+    
     //Separate the file info and the characters
     NSString * fontInfo = [fontFile substringToIndex:rangeOf.location];
-    NSString * fontData = [fontFile substringFromIndex:rangeOf.location];
+    NSString * fontData,*kerns;
+    if(!kernRange.length){
+        fontData = [fontFile substringFromIndex:rangeOf.location];
+    }
+    else{
+        NSString *f = [fontFile substringFromIndex:rangeOf.location];
+        kerns = [fontFile substringFromIndex:kernRange.location + kernRange.length];
+        kernRange = [f rangeOfString:@"\nkernings"];
+        fontData = [f substringToIndex:kernRange.location];
+     //   NSLog(@"kerns %@",kerns);
+      //  NSLog(@"fontdata %@",fontData);
+    }
+    NSArray * kernArray = [kerns componentsSeparatedByString:@"\n"];
+   //  NSLog(@"Kern count %i",kernArray.count);
 
+    for (NSString*lineK in kernArray) {
+        if([lineK rangeOfString:@"count="].length)continue;
+        NSArray * la = [lineK componentsSeparatedByString:@" "];
+        if(la.count <2)continue;
+   //     NSLog(@"LA %@",la);
+        NSArray * first = [[la objectAtIndex:1]componentsSeparatedByString:@"="];
+        NSArray * second = [[la objectAtIndex:2]componentsSeparatedByString:@"="];
+        NSArray * amountArray = [[la objectAtIndex:3]componentsSeparatedByString:@"="];
+        
+        NSString * charValue1 = [NSString stringWithFormat:@"%c",[[first objectAtIndex:1]intValue]];
+        NSString * charValue2 = [NSString stringWithFormat:@"%c",[[second objectAtIndex:1]intValue]];
+        NSNumber * amount = [NSNumber numberWithInt:[[amountArray objectAtIndex:1]intValue]];
+        char fk =[[first objectAtIndex:1]intValue];
+        char lk = [[second objectAtIndex:1]intValue];
+        int kv =(fk<<16) | (lk&0xffff);
+        
+        NSString * key = [NSString stringWithFormat:@"%i",kv];
+
+        [self.kerningDict setObject:amount forKey:key];
+    }
+  //  NSLog(@"Kern dict %@",self.kerningDict);
+   
     //Create an array of characters
     NSArray* charsArray = [fontData componentsSeparatedByString:@"\n"];
+  //  NSLog(@"Chars Array count %i",charsArray.count);
     self.fontDict = [[NSMutableDictionary alloc]init];
     //Step the array of character info
     for (NSString * str in charsArray) {
@@ -73,6 +110,86 @@
 
 }
 
+
+-(void)autoKern
+{
+    return;
+    NSNumber * amount = [NSNumber numberWithInt:-10];
+    char fk =105;
+    char lk = 110;
+    int kv =(fk<<16) | (lk&0xffff);
+    NSString * key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+
+    
+    amount = [NSNumber numberWithInt:-6];
+    fk =105;
+    lk = 119;
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+    
+    fk =73;
+    lk = 78;
+    amount = [NSNumber numberWithInt:-5];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+
+    fk =110;
+    lk = 32;
+    amount = [NSNumber numberWithInt:-7];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+    
+    fk =78;
+    lk = 73;
+    amount = [NSNumber numberWithInt:-5];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+    
+ 
+    
+    fk =111;
+    lk = 108;
+    amount = [NSNumber numberWithInt:-4];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+
+    
+    fk =108;
+    lk = 111;
+    amount = [NSNumber numberWithInt:-4];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+    
+    fk =100;
+    lk = 108;
+    amount = [NSNumber numberWithInt:-3];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+
+    
+    fk =108;
+    lk = 108;
+    amount = [NSNumber numberWithInt:-5];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+
+    fk =111;
+    lk = 108;
+    amount = [NSNumber numberWithInt:2];
+    kv =(fk<<16) | (lk&0xffff);
+    key = [NSString stringWithFormat:@"%i",kv];
+    [self.kerningDict setObject:amount forKey:key];
+}
+
 -(id)initWithFontPackageNamed:(NSString*)fontPackageName isXML:(BOOL)xml
 {
     if(self=[super init]){
@@ -86,12 +203,14 @@
         else{
             xml =NO;
         }
+        self.kerningDict = [[NSMutableDictionary alloc]init];
+        
         if(xml){
             //Read the xml file in to NSData for the parser
             NSData * xmlData = [[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.fnt",pff,fontName]];
             //Snag the font image
             self.fontImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",pff,fontName]];
-
+            
             if(xmlData){
                 //It's sparrow we'll read it
                 NSError *error = nil;
@@ -109,28 +228,53 @@
                 }
                 //This is the info key containging such info as Bol, itallic etc.
                 self.fontData = [[NSMutableDictionary alloc]initWithDictionary:[[fd objectForKey:@"font"] objectForKey:@"info"] copyItems:YES];
+                [self.fontData addEntriesFromDictionary:[[fd objectForKey:@"font"] objectForKey:@"common"]];
+                [self.fontData addEntriesFromDictionary:[[fd objectForKey:@"font"] objectForKey:@"pages"]];
+                NSMutableDictionary *kd = [[NSMutableDictionary alloc]initWithDictionary:[[fd objectForKey:@"font"] objectForKey:@"kernings"] copyItems:YES];
+                
+                [self autoKern];
+              //  NSLog(@"Kerning %@",[kd objectForKey:@"kerning"]);
+                for (NSDictionary*pair in [kd objectForKey:@"kerning"]) {
+                   // NSLog(@"Pair %@",pair);
+                    NSNumber * amount = [NSNumber numberWithInt:[[pair objectForKey:@"amount"]intValue]];
+                    char fk =[[pair objectForKey:@"first"]intValue];
+                    char lk = [[pair objectForKey:@"second"]intValue];
+                    int kv =(fk<<16) | (lk&0xffff);
+                    NSLog(@"Key %i",kv);
+                    NSString * key = [NSString stringWithFormat:@"%i",kv];
+                    [self.kerningDict setObject:amount forKey:key];
+                }
+            
             }
             
             else{
                 
                 [self parseCocos2d:fontPackageName];
+                [self autoKern];
             }
             
             
             
         }
         else{
+
             [self parseCocos2d:fontPackageName];
+            [self autoKern];
             //cocos2d reader here
         }
 
     }
+  //  NSLog(@"%@",self.kerningDict);
     [self parseFonts];
     return self;
 }
 
 
-
+-(void)setValue:(id)value forKey:(NSString *)key forCharacter:(NSString*)ch
+{
+    NSMutableDictionary * fd = [self.fontDict objectForKey:ch];
+    [fd setObject:value forKey:key];
+}
 
 -(void)parseFonts
 {
@@ -146,9 +290,12 @@
         yOrigin = [[ch objectForKey:@"y"]floatValue];
         myWidth = [[ch objectForKey:@"width"]floatValue];
         myHeight = [[ch objectForKey:@"height"]floatValue];
+        float xoff = [[ch objectForKey:@"xoffset"]floatValue];
+        float yoff = [[ch objectForKey:@"yoffseet"]floatValue];
         //I probably will regret this but it was to fix an issue with 0 sized image.
         if(myHeight == 0) myHeight =1;
         if(myWidth == 0) myWidth =1;
+
         //create a rect for the char in question. Code borrowed from: http://stackoverflow.com/questions/8538250/uiimage-by-selecting-part-of-another-uiimage
         CGRect myImageArea = CGRectMake(xOrigin, yOrigin, myWidth, myHeight);//newImage
         //Create the image
