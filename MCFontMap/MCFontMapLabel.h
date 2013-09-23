@@ -12,7 +12,9 @@
 #import "MCFont.h"
 #import "MCFontMapReader.h"
 
-
+/*
+ As a subclass of SKSpriteNode MCFontMapLabel responds to all of the standard SKSpriteNode selectors.
+*/
 
 @interface MCFontMapLabel : SKSpriteNode
 {
@@ -26,8 +28,11 @@
 @property (nonatomic,strong) NSString * string;
 @property (nonatomic) float fontSize;
 
-//Create a label with a fontmapped font, with a mximum width of maxWidth. for a single line label with no maximum width set maxWidth =0
--(id)initWithString:(NSString*)string font:(MCFont*)font fontSize:(float)size maxWidth:(float)maxWidth;
+//Create a label with a fontmapped font, multiple line labels are only supported by \n delimitation
+
+//Multiple lines do not currently support scrolling so keep labels screen size or smaller.
+
+-(id)initWithString:(NSString*)string font:(MCFont*)font fontSize:(float)size;
 
 
 
