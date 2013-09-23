@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>7990D02F-615D-41BA-9CFB-B10E5CAB798F</string>
+	<string>804E28D2-40DD-4564-B98A-82D62DF36035</string>
 	<key>IDESourceControlProjectName</key>
 	<string>MCFontMap</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3C327587-AD2D-4413-94DD-90BED851DF09</key>
+		<key>DB391242-ECCC-4C28-AFCA-FCEF0F6686FE</key>
 		<string>https://github.com/fornextsoft/MCFontMap.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>MCFontMap.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3C327587-AD2D-4413-94DD-90BED851DF09</key>
+		<key>DB391242-ECCC-4C28-AFCA-FCEF0F6686FE</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3C327587-AD2D-4413-94DD-90BED851DF09</string>
+	<string>DB391242-ECCC-4C28-AFCA-FCEF0F6686FE</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3C327587-AD2D-4413-94DD-90BED851DF09</string>
+			<string>DB391242-ECCC-4C28-AFCA-FCEF0F6686FE</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MCFontMap</string>
 		</dict>
