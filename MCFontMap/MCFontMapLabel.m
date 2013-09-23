@@ -236,6 +236,11 @@
                     
                     if((index+1 != string.length) && index){
                         //Implemnting Kerning support. It appears to work
+                        //But as you can see the variable names are confusing
+                        //I am new to working at this level with fonts so I had to experiement and
+                        //I didn't bother to change the variable names.
+                        // lastChar should be interpreted as current Character
+                        // next obviously, is th next one in the list
                         lastChar = [string characterAtIndex:index];
                         nextChar = [string characterAtIndex:index+1];
                         kern = [font kerningForFirst:[NSString stringWithFormat:@"%c",lastChar] second:[NSString stringWithFormat:@"%c",nextChar]];
