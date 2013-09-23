@@ -6,6 +6,7 @@
 //
 
 #import "MCFontMapReader.h"
+#import "XMLReader.h"
 
 @implementation MCFontMapReader
 
@@ -16,7 +17,7 @@
     NSString * pff = [[NSBundle mainBundle]pathForResource:fontName ofType:@"fntpkg"];
     NSString * fontFile = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.fnt",pff,fontName] encoding:NSUTF8StringEncoding error:nil];
     self.fontImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",pff,fontName]];
-    
+
     //This will break the file data in half assuming it was made with bgGlyph this should work
     //If the font file information is placed at the end of the document this will not work.
     NSRange rangeOf = [fontFile rangeOfString:@"\nchar "];
@@ -100,7 +101,7 @@
         }
     }
 
-    
+ 
     [self parseFonts];
 
 }

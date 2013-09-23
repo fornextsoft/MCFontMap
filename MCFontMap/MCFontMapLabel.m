@@ -102,16 +102,17 @@
         //Create the sprite dictionary which contains all of the information about each sprite.
         NSDictionary * sprites = [self createSpritesFromChars:chars fontSize:size];
         //I have used setting the color to mark the bounding box so I can sex exactly where the text draws vs. the label's placement on the screen
-        /*self.color = [UIColor redColor];
-        self.colorBlendFactor =1;*/
+       // self.color = [UIColor redColor];
+       //  self.colorBlendFactor =1;
         
         float scale = [[sprites objectForKey:@"Scale"]floatValue];
         float xpoint=0;
         
         float labelHeight =([[sprites objectForKey:@"Line Height"]floatValue])*scale;
-        float labelWidth =([[sprites objectForKey:@"Total Width"]floatValue]+[[sprites objectForKey:@"Space Size"]floatValue])*scale;
+        float labelWidth =([[sprites objectForKey:@"Total Width"]floatValue])*scale;/*+[[sprites objectForKey:@"Space Size"]floatValue])*scale;*/
         
-        xpoint -= (labelWidth/2)-(([[sprites objectForKey:@"Space Size"]floatValue]*scale)/2);
+        xpoint -= (labelWidth/2);/*-(([[sprites objectForKey:@"Space Size"]floatValue]*scale)/2)*/;
+        //xpoint +=(([[sprites objectForKey:@"Space Size"]floatValue]*scale)/2);
         float originalX=xpoint;
         
         if(![string rangeOfString:@"\n"].length){ //Assumed single line label
@@ -120,27 +121,39 @@
             for (NSDictionary * chr in [sprites objectForKey:@"Sprites"]) {
                 //Stepping through each sprite in the list
                 SKSpriteNode * theSprite = [chr objectForKey:@"Sprite"];
-                
+                theSprite.anchorPoint = CGPointMake(0, 1);
                 char nextChar,lastChar;
-                int kern=0;
+                float kern=0;
                 
                 if((index+1 != string.length) && index){
                     //Add kerning support for instance Arial Black has kerning
-                     lastChar = [string characterAtIndex:index];
-                    nextChar = [string characterAtIndex:index+1];
+                    lastChar = [string characterAtIndex:index-1];
+                    nextChar = [string characterAtIndex:index];
                     kern = [font kerningForFirst:[NSString stringWithFormat:@"%c",lastChar] second:[NSString stringWithFormat:@"%c",nextChar]];
+                    //kern *=scale;
+                    //NSLog(@"Kern %f",kern);
+                    
                 }
                 //Set the position
-                CGPoint pos =CGPointMake((xpoint+(kern))-(([[chr objectForKey:@"xOffset"]floatValue]*theSprite.xScale)/2),
-                                         CGRectGetMidY(self.frame)-(([[chr objectForKey:@"yOffset"]floatValue]*theSprite.yScale)/2));
-
+                xpoint +=kern;
+                xpoint += [[chr objectForKey:@"xOffset"]floatValue]*theSprite.xScale;
+                //xpoint += (theSprite.size.width/2)*scale;
+                
+                float y = CGRectGetMidY(self.frame);
+                y -=([[chr objectForKey:@"yOffset"]floatValue]*theSprite.yScale);
+                y += (labelHeight)/2;
+                CGPoint pos =CGPointMake(xpoint,y);
+                
                 CGPoint sposition = pos;
                 
                 theSprite.position = sposition;
                 
                 //Advance the xposition to the next draw location
-                
-                if(![theSprite.name isEqualToString:@" "])xpoint += (([[chr objectForKey:@"xadvance"]floatValue])*theSprite.xScale);
+                float xOffset =[[chr objectForKey:@"xOffset"]floatValue]*scale;
+                if(![theSprite.name isEqualToString:@" "]){
+                    xpoint += (([[chr objectForKey:@"xadvance"]floatValue])*theSprite.xScale);
+                    xpoint-=xOffset*2;
+                }
                 else{
                     int amt=0;
                     if(kern >0) amt =kern;
@@ -154,7 +167,7 @@
         }
         else{
             //Currently this library only supports multiple lines if lines are newline ('\n') delimited
-           
+            
             NSUInteger quantityOfLines = 1;
             
             NSUInteger stringLen = [string length];
@@ -166,13 +179,13 @@
                 if( c=='\n')
                     quantityOfLines++;
             }
- 
+            
             float lineHeight = [[sprites objectForKey:@"Line Height"]intValue]*scale;
-       
+            
             float currentHeight = lineHeight;
             NSMutableArray * linesArray = [[NSMutableArray alloc]init];
             NSMutableArray * currentLine = [[NSMutableArray alloc]init];
-           
+            
             float maxWidth =0;
             float lineWidth =0;
             
@@ -184,14 +197,14 @@
                     NSArray * temp = [[NSArray alloc]initWithArray:currentLine copyItems:YES];
                     
                     [linesArray addObject:temp];
-         
+                    
                     [currentLine removeAllObjects];
                     if (lineWidth > maxWidth) {
                         maxWidth = lineWidth;
                     }
                     
                     lineWidth =0;
-              
+                    
                 }
                 else{
                     lineWidth +=(([[spriteDict objectForKey:@"xadvance"]floatValue])*scale);
@@ -206,30 +219,30 @@
             currentHeight = linesArray.count *lineHeight;
             //And we've added all the character information together to get the width of each line, constantly updating the maxWidth so that we're the right size
             if(lineWidth > maxWidth) maxWidth = lineWidth;
-
+            
             //There are no lines in the array so we'll just bug out here.
             if(!linesArray.count)return nil;
-
+            
             if([[linesArray lastObject]count] <1){
                 [linesArray removeLastObject];
                 currentHeight -=  lineHeight;
             }
             
-           
+            
             self.size = CGSizeMake(maxWidth,currentHeight);
             int index=0;
             float thisLineY = 0;
             originalX = 0;
             //I took several steps with the xpos and have not consolidated them back the way they should be
             xpoint= originalX;
-            xpoint  -=(maxWidth*2)*scale;
-            
+            xpoint  -=(maxWidth/2);
+            xpoint += 2;
             for (NSArray*aLine in linesArray) {
                 
                 for (NSDictionary*aSprite in aLine) {
                     
                     SKSpriteNode * theSprite = [aSprite objectForKey:@"Sprite"];
-                    
+                    theSprite.anchorPoint = CGPointMake(0, 1);
                     char nextChar,lastChar;
                     int kern=0;
                     
@@ -240,22 +253,28 @@
                         //I didn't bother to change the variable names.
                         // lastChar should be interpreted as current Character
                         // next obviously, is th next one in the list
-                        lastChar = [string characterAtIndex:index];
-                        nextChar = [string characterAtIndex:index+1];
+                        lastChar = [string characterAtIndex:index-1];
+                        nextChar = [string characterAtIndex:index];
                         kern = [font kerningForFirst:[NSString stringWithFormat:@"%c",lastChar] second:[NSString stringWithFormat:@"%c",nextChar]];
                     }
                     //All these Y adjustments are probably inefficent but for at least 6 lines of text they work to keep things placed correctly..
                     float y = CGRectGetMidY(self.frame)-thisLineY;
                     y +=currentHeight/2;
-                    y -= (lineHeight/2);
-                    y +=linesArray.count/2;
-                    y -=([[aSprite objectForKey:@"yOffset"]floatValue]*theSprite.yScale)/2;
-                    //Set the character's position
-                    CGPoint pos =CGPointMake((xpoint+(kern))-(([[aSprite objectForKey:@"xOffset"]floatValue]*theSprite.xScale)),y);
+                    y -=([[aSprite objectForKey:@"yOffset"]floatValue]*theSprite.yScale);
+                    //y += (labelHeight)/2;
                     
+                    xpoint +=kern;
+                    xpoint += [[aSprite objectForKey:@"xOffset"]floatValue]*theSprite.xScale;
+                    //Set the character's position
+                    CGPoint pos =CGPointMake(xpoint,y);
+                    
+                    float xOffset =[[aSprite objectForKey:@"xOffset"]floatValue]*scale;
                     theSprite.position = pos;
                     //Now we advance the xpoint to the next draw location
-                    if(![theSprite.name isEqualToString:@" "])xpoint += (([[aSprite objectForKey:@"xadvance"]floatValue])*theSprite.xScale);
+                    if(![theSprite.name isEqualToString:@" "]){
+                        xpoint += (([[aSprite objectForKey:@"xadvance"]floatValue])*theSprite.xScale);
+                        xpoint-=xOffset*2;
+                    }
                     else{
                         int amt=0;
                         if(kern >0) amt =kern;
@@ -269,7 +288,8 @@
                 //we've completed a line, time to advance the draw location's Y location.
                 thisLineY += lineHeight;
                 xpoint= originalX;
-                xpoint  -=(maxWidth*2)*scale;
+                xpoint  -=(maxWidth/2);
+                xpoint +=2;
             }
             
         }
