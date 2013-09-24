@@ -13,4 +13,4 @@
 #import "MCFontMapReader.h"
 #import "MCFont.h"
 #import "MCFontMapLabel.h"
-
+#import "MCLetterSprite.h"
