@@ -9,6 +9,7 @@
 
 #import "MCFont.h"
 #import "MCFontMapReader.h"
+#import "MCLetterSprite.h"
 
 /*
  As a subclass of SKSpriteNode MCFontMapLabel responds to all of the standard SKSpriteNode selectors.

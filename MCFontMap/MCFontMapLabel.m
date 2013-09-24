@@ -55,7 +55,9 @@
         }
         if(h <=0)h=lineHeight;
         
-        SKSpriteNode * sprite = [[SKSpriteNode alloc]initWithTexture:spTexture color:nil size:CGSizeMake(w, h)];
+        MCLetterSprite * sprite = [[MCLetterSprite alloc]initWithTexture:spTexture color:nil size:CGSizeMake(w, h)];
+        sprite.movable = NO;
+        sprite.passthrough = YES;
         sprite.color = [chr objectForKey:@"Color"];
         sprite.colorBlendFactor = [[chr objectForKey:@"Blend"]floatValue];
         sprite.xScale = fontPixelSize;
@@ -120,7 +122,7 @@
             int index=0;
             for (NSDictionary * chr in [sprites objectForKey:@"Sprites"]) {
                 //Stepping through each sprite in the list
-                SKSpriteNode * theSprite = [chr objectForKey:@"Sprite"];
+                MCLetterSprite * theSprite = [chr objectForKey:@"Sprite"];
                 theSprite.anchorPoint = CGPointMake(0, 1);
                 char nextChar,lastChar;
                 float kern=0;
@@ -241,7 +243,7 @@
                 
                 for (NSDictionary*aSprite in aLine) {
                     
-                    SKSpriteNode * theSprite = [aSprite objectForKey:@"Sprite"];
+                    MCLetterSprite * theSprite = [aSprite objectForKey:@"Sprite"];
                     theSprite.anchorPoint = CGPointMake(0, 1);
                     char nextChar,lastChar;
                     int kern=0;

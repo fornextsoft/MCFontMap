@@ -24,6 +24,7 @@
 		AAB82F5E17ED152E0097A027 /* MCFont.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F4B17ED13B60097A027 /* MCFont.h */; };
 		AAB82F5F17ED152E0097A027 /* MCFontMapLabel.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F4D17ED13B60097A027 /* MCFontMapLabel.h */; };
 		AAB82F6017ED152E0097A027 /* MCFontMapReader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F4F17ED13B60097A027 /* MCFontMapReader.h */; };
+		AAFE221F17F1F988009A6F22 /* MCLetterSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = AAFE221E17F1F988009A6F22 /* MCLetterSprite.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,8 @@
 		AAB82F5A17ED146F0097A027 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		AAB82F5C17ED15120097A027 /* MilitaryFont.fntpkg */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MilitaryFont.fntpkg; sourceTree = "<group>"; };
 		AAB82F6117ED159E0097A027 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = MCFontMap/LICENSE; sourceTree = "<group>"; };
+		AAFE221D17F1F988009A6F22 /* MCLetterSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLetterSprite.h; sourceTree = "<group>"; };
+		AAFE221E17F1F988009A6F22 /* MCLetterSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLetterSprite.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +146,8 @@
 				AAB82F4E17ED13B60097A027 /* MCFontMapLabel.m */,
 				AAB82F4F17ED13B60097A027 /* MCFontMapReader.h */,
 				AAB82F5017ED13B60097A027 /* MCFontMapReader.m */,
+				AAFE221D17F1F988009A6F22 /* MCLetterSprite.h */,
+				AAFE221E17F1F988009A6F22 /* MCLetterSprite.m */,
 				AAB82F5117ED13B60097A027 /* XMLReader.h */,
 				AAB82F5217ED13B60097A027 /* XMLReader.m */,
 				AAB82F1B17ED11630097A027 /* Supporting Files */,
@@ -259,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAFE221F17F1F988009A6F22 /* MCLetterSprite.m in Sources */,
 				AAB82F5517ED13B60097A027 /* MCFontMapReader.m in Sources */,
 				AAB82F5417ED13B60097A027 /* MCFontMapLabel.m in Sources */,
 				AAB82F5617ED13B60097A027 /* XMLReader.m in Sources */,
