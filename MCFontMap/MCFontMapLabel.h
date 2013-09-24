@@ -19,13 +19,14 @@
 {
     float width;
     float height;
-    
+    NSString * _string;
+    float _fontSize;
 }
 
 
 @property (nonatomic,strong) MCFont * font;
-@property (nonatomic,strong) NSString * string;
-@property (nonatomic) float fontSize;
+@property (nonatomic,strong) NSString * string; //Single Lines mutate reliably, multiline labels do not
+@property (nonatomic) float fontSize; //Probably not reliably mutatable
 @property (nonatomic) BOOL movable; //Can the label be moved. Defaults to NO
 @property (nonatomic) BOOL passThrough;//Does the label pass touches through to it's parent defaults to YES
 
