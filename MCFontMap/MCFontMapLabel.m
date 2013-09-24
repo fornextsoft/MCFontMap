@@ -57,7 +57,7 @@
         
         MCLetterSprite * sprite = [[MCLetterSprite alloc]initWithTexture:spTexture color:nil size:CGSizeMake(w, h)];
         sprite.movable = NO;
-        sprite.passthrough = YES;
+        sprite.passThrough = YES;
         sprite.color = [chr objectForKey:@"Color"];
         sprite.colorBlendFactor = [[chr objectForKey:@"Blend"]floatValue];
         sprite.xScale = fontPixelSize;
@@ -89,7 +89,8 @@
         self.font = font;
         self.fontSize = size; //These are reference variables in case I or you, need them at some point
         self.string = string;
-        
+        self.movable = NO;
+        self.passThrough = YES;
         self.anchorPoint = CGPointMake(.5, .5); //Should be already set to this but let's make sure.
         int i =0;
         NSMutableArray * chars = [[NSMutableArray alloc]init];

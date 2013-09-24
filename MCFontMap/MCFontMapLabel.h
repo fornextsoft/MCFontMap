@@ -26,6 +26,8 @@
 @property (nonatomic,strong) MCFont * font;
 @property (nonatomic,strong) NSString * string;
 @property (nonatomic) float fontSize;
+@property (nonatomic) BOOL movable; //Can the label be moved. Defaults to NO
+@property (nonatomic) BOOL passThrough;//Does the label pass touches through to it's parent defaults to YES
 
 //Create a label with a fontmapped font, multiple line labels are only supported by \n delimitation
 

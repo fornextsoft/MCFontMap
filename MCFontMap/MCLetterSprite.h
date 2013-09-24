@@ -15,7 +15,7 @@
 
 
 
-@property (nonatomic) BOOL passthrough; //Passes touches through to parent Defaults to YES
+@property (nonatomic) BOOL passThrough; //Passes touches through to parent Defaults to YES
 @property (nonatomic) BOOL movable; //Sprite can be moved defaults to NO
 
 
