@@ -54,7 +54,7 @@
             totalWidth +=(addSpace);
         }
         else{
-            totalWidth +=[[chr objectForKey:@"xadvance"]floatValue];
+            totalWidth +=([[chr objectForKey:@"xadvance"]floatValue]-[[chr objectForKey:@"xoffset"]floatValue]);
         }
         if(h <=0)h=lineHeight;
         
