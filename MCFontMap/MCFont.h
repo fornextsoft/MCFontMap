@@ -9,15 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "MCFontMapReader.h"
 
+#ifdef MACOS
+#define UIColor NSColor
+#endif
+
 @interface MCFont : NSObject
 {
     MCFontMapReader * reader;
-    UIColor *_fontColor;
+    SKColor *_fontColor;
     float _fontColorBlend;
 }
 
 @property (nonatomic) BOOL kern; //Defaults to YES
-@property (nonatomic,strong) UIColor* fontColor;
+@property (nonatomic,strong) SKColor* fontColor;
 @property (nonatomic) float fontColorBlend;
 
 

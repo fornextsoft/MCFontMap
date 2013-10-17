@@ -23,11 +23,18 @@
         reader = [[MCFontMapReader alloc]initWithFontPackageNamed:fontName isXML:xml];
         //Assume that kerning is supported by this font
         self.kern = YES;
-        self.fontColor = [UIColor clearColor];
+        self.fontColor = [SKColor clearColor];
         self.fontColorBlend =0;
     }
     
     return self;
+}
+
+-(void)dealloc
+{
+    reader = nil;
+    self.fontColor = nil;
+    //NSLog(@"<0x%x %@> Dealloc",self,self.class);
 }
 
 
@@ -59,7 +66,7 @@
 }
 
 
--(void)setFontColor:(UIColor *)fontColor
+-(void)setFontColor:(SKColor *)fontColor
 {
     _fontColor = fontColor;
 
@@ -70,7 +77,7 @@
     }
 }
 
--(UIColor*)fontColor
+-(SKColor*)fontColor
 {
     return _fontColor;
 }

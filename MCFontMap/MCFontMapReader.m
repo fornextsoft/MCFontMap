@@ -16,8 +16,10 @@
     NSString* fontName = [fontPackageName stringByDeletingPathExtension];
     NSString * pff = [[NSBundle mainBundle]pathForResource:fontName ofType:@"fntpkg"];
     NSString * fontFile = [NSString stringWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.fnt",pff,fontName] encoding:NSUTF8StringEncoding error:nil];
-    self.fontImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",pff,fontName]];
 
+    self.fontImage = [[MCImage alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",pff,fontName]];
+
+    
     //This will break the file data in half assuming it was made with bgGlyph this should work
     //If the font file information is placed at the end of the document this will not work.
     NSRange rangeOf = [fontFile rangeOfString:@"\nchar "];
@@ -127,8 +129,11 @@
             //Read the xml file in to NSData for the parser
             NSData * xmlData = [[NSData alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.fnt",pff,fontName]];
             //Snag the font image
-            self.fontImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",pff,fontName]];
-            
+#if TARGET_OS_IPHONE
+            self.fontImage = [MCImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",pff,fontName]];
+#else
+            self.fontImage = [[MCImage alloc]initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@.png",pff,fontName]];
+#endif
             if(xmlData){
                 //It's sparrow we'll read it
                 NSError *error = nil;
@@ -176,10 +181,24 @@
         }
 
     }
-  //  NSLog(@"%@",self.kerningDict);
+  //  ////NSLog(@"%@",self.kerningDict);
     [self parseFonts];
     return self;
 }
+
+
+-(void)dealloc
+{
+    [self.fontData removeAllObjects];
+    [self.fontDict removeAllObjects];
+    self.fontImage = nil;
+    self.fontDict = nil;
+    self.fontData = nil;
+    [self.kerningDict removeAllObjects];
+    self.kerningDict = nil;
+    //NSLog(@"<0x%x %@> Dealloc",self,self.class);
+}
+
 
 
 -(void)setValue:(id)value forKey:(NSString *)key forCharacter:(NSString*)ch
@@ -211,7 +230,14 @@
         //create a rect for the char in question. Code borrowed from: http://stackoverflow.com/questions/8538250/uiimage-by-selecting-part-of-another-uiimage
         CGRect myImageArea = CGRectMake(xOrigin, yOrigin, myWidth, myHeight);//newImage
         //Create the image
-        UIImage *mySubimage  = [UIImage imageWithCGImage:CGImageCreateWithImageInRect(self.fontImage.CGImage, myImageArea)];
+#if TARGET_OS_IPHONE
+        MCImage *mySubimage  = [MCImage imageWithCGImage:CGImageCreateWithImageInRect(self.fontImage.CGImage, myImageArea)];
+#else
+        CGImageSourceRef source;
+        source = CGImageSourceCreateWithData((__bridge CFDataRef)[self.fontImage TIFFRepresentation], NULL);
+        CGImageRef maskRef =  CGImageSourceCreateImageAtIndex(source, 0, NULL);
+        MCImage *mySubimage  = [[MCImage alloc]initWithCGImage:CGImageCreateWithImageInRect(maskRef, myImageArea) size:myImageArea.size];
+#endif
         //Add the image to the char's dictionary entry.
         NSMutableDictionary * thisItem = [[NSMutableDictionary alloc]initWithDictionary:ch copyItems:YES];
         [thisItem setObject:mySubimage forKey:@"Image"];
@@ -219,8 +245,8 @@
     }
     [self.fontDict removeAllObjects];
     [self.fontDict setDictionary:final];
-   // NSLog(@"Font info %@",self.fontData);
-//    NSLog(@"Font Dict %@",self.fontDict);
+   // ////NSLog(@"Font info %@",self.fontData);
+//    ////NSLog(@"Font Dict %@",self.fontDict);
 }
 
 @end

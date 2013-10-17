@@ -137,7 +137,7 @@
                     nextChar = [string characterAtIndex:index];
                     kern = [font kerningForFirst:[NSString stringWithFormat:@"%c",lastChar] second:[NSString stringWithFormat:@"%c",nextChar]];
                     //kern *=scale;
-                    //NSLog(@"Kern %f",kern);
+                    //////NSLog(@"Kern %f",kern);
                     
                 }
                 //Set the position
@@ -301,17 +301,28 @@
         }
     }
     
-    
+  //  ////NSLog(@"Font label %@",self);
     return self;
     
+}
+
+-(void)dealloc
+{
+    [self removeFromParent];
+    self.string = nil;
+    //NSLog(@"<0x%x %@> Dealloc",self,self.class);
 }
 
 
 -(void)setString:(NSString *)string
 {
-    UIColor * oldColor = self.color;
+    if(!string){
+        _string = nil;
+        return;
+    }
+    SKColor * oldColor = self.color;
     float oldBlend = self.colorBlendFactor;
-    //NSLog(@"Old blend %f",oldBlend);
+    //////NSLog(@"Old blend %f",oldBlend);
     _string = nil;
     _string = [[NSString alloc]initWithString:string];
     [self removeAllChildren];
@@ -325,6 +336,7 @@
         
         [chars addObject:c];
         i++;
+      //  [[NSRunLoop currentRunLoop]runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
     }
 
     //Create the sprite dictionary which contains all of the information about each sprite.
@@ -359,7 +371,7 @@
                 nextChar = [string characterAtIndex:index];
                 kern = [self.font kerningForFirst:[NSString stringWithFormat:@"%c",lastChar] second:[NSString stringWithFormat:@"%c",nextChar]];
                 //kern *=scale;
-                //NSLog(@"Kern %f",kern);
+                //////NSLog(@"Kern %f",kern);
                 
             }
             //Set the position
@@ -370,7 +382,7 @@
             //xpoint += (theSprite.size.width/2)*scale;
             //float dif = [[sprites objectForKey:@"Line Height"]floatValue]*scale - self.size.height;
             float y = (self.frame.size.height/2)-(([[sprites objectForKey:@"Line Height"]floatValue]*scale)/2);//CGRectGetMidY(self.frame);
-            NSLog(@"Y location for char %f",y);
+       //     ////NSLog(@"Y location for char %f",y);
             y -=([[chr objectForKey:@"yOffset"]floatValue]*theSprite.yScale);
             y += (labelHeight)/2;
             CGPoint pos =CGPointMake(xpoint,y);
@@ -393,6 +405,7 @@
             [self addChild:theSprite];
             //Advance the index for kerning support
             index++;
+            //[[NSRunLoop currentRunLoop]runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
         }
         
     }
@@ -441,7 +454,7 @@
                 lineWidth +=(([[spriteDict objectForKey:@"xadvance"]floatValue])*scale);
                 [currentLine addObject:spriteDict];
             }
-            
+          //  [[NSRunLoop currentRunLoop]runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
         }
         //Make sure to add the final line to the array of lines
         [linesArray addObject:currentLine];
@@ -520,14 +533,14 @@
                 [self addChild:theSprite];
                 //increment the index for kerning support
                 index++;
-                
+            // [[NSRunLoop currentRunLoop]runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
             }
             //we've completed a line, time to advance the draw location's Y location.
             thisLineY += lineHeight;
             xpoint= originalX;
             xpoint  -=(maxWidth/2);
             xpoint +=2;
-            
+         //[[NSRunLoop currentRunLoop]runUntilDate:[NSDate dateWithTimeIntervalSinceNow:.001]];
         }
         CGPoint p = self.position;
         p.y -=(currentHeight/2)/linesArray.count;
@@ -535,32 +548,57 @@
         
     }
     
-    NSLog(@"Old color %@",oldColor);
-    NSLog(@"Old blend %f",oldBlend);
+ //   ////NSLog(@"Old color %@",oldColor);
+ //   ////NSLog(@"Old blend %f",oldBlend);
     self.color = oldColor;
     self.colorBlendFactor = oldBlend;
 }
 
 
-
--(void)setColor:(UIColor *)color
+#if TARGET_OS_IPHONE
+-(void)setColor:(SKColor *)color
 {
-    super.color = [UIColor clearColor];
+    super.color = [SKColor clearColor];
     for (SKSpriteNode*letter in self.children) {
         letter.color = color;
+        
     }
 }
 
 
  
  
--(UIColor*)color
+-(SKColor*)color
 {
     if(self.children.count){
         return [[self.children objectAtIndex:0] color];
     }
-    else return [UIColor clearColor];
+    else return [SKColor clearColor];
 }
+#else
+
+-(void)setColor:(NSColor *)color
+{
+    super.color = [NSColor clearColor];
+    for (SKSpriteNode*letter in self.children) {
+        letter.color = color;
+        
+    }
+}
+
+
+
+
+-(NSColor*)color
+{
+    if(self.children.count){
+        return [[self.children objectAtIndex:0] color];
+    }
+    else return [NSColor clearColor];
+}
+
+
+#endif
 
 -(void)setColorBlendFactor:(CGFloat)colorBlendFactor
 {

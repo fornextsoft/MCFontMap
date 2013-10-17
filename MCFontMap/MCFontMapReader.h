@@ -7,7 +7,7 @@
 
 
 #import <SpriteKit/SpriteKit.h>
-
+#import "Globals.h"
 
 
 @interface MCFontMapReader : NSObject
@@ -18,7 +18,7 @@
 
 @property (nonatomic,strong) NSMutableDictionary * fontDict;
 @property (nonatomic,strong) NSMutableDictionary * kerningDict;
-@property (nonatomic,strong) UIImage * fontImage;
+@property (nonatomic,strong) MCImage * fontImage;
 @property (nonatomic,strong) NSMutableDictionary * fontData;
 
 
