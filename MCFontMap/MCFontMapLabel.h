@@ -21,6 +21,7 @@
     float height;
     NSString * _string;
     float _fontSize;
+    SKColor *_fontColor;
 }
 
 

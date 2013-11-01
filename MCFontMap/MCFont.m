@@ -14,7 +14,7 @@
 -(id)initWithFontNamed:(NSString*)fontName isXML:(BOOL)xml
 {
     if(self=[super init]){
-        
+        NSLog(@"Loading font named %@",fontName);
         if(![fontName pathExtension]){
             fontName = [[NSString stringWithFormat:@"%@.fntpkg",fontName]lastPathComponent];
         }
@@ -34,7 +34,6 @@
 {
     reader = nil;
     self.fontColor = nil;
-    //NSLog(@"<0x%x %@> Dealloc",self,self.class);
 }
 
 
@@ -46,6 +45,7 @@
 
 -(NSDictionary*)dictionaryForCharacter:(NSString *)ch
 {
+
     return [reader.fontDict objectForKey:ch];
 }
 
@@ -96,7 +96,7 @@
 
 -(NSString*)description
 {
-    //I like to do this with custom objects so I can have some finite details
+    //I like to do this with custom objects so I can have some fine details
     NSString * charCount = [NSString stringWithFormat:@"%i",reader.fontDict.count];
     NSString * fontName = [NSString stringWithFormat:@"%@",[reader.fontData objectForKey:@"face"]];
     NSString * image = [NSString stringWithFormat:@"%@",[reader.fontData objectForKey:@"file"]];

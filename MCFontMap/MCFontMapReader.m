@@ -7,6 +7,8 @@
 
 #import "MCFontMapReader.h"
 #import "XMLReader.h"
+#import "MCLetterSprite.h"
+
 
 @implementation MCFontMapReader
 
@@ -181,7 +183,7 @@
         }
 
     }
-  //  ////NSLog(@"%@",self.kerningDict);
+
     [self parseFonts];
     return self;
 }
@@ -211,7 +213,6 @@
 {
     NSMutableDictionary * final =[[NSMutableDictionary alloc]init];
     for (NSString*chr in self.fontDict) {
-        
         NSDictionary * ch = [self.fontDict objectForKey:chr];
         
         float xOrigin=0,yOrigin=0;
@@ -231,22 +232,27 @@
         CGRect myImageArea = CGRectMake(xOrigin, yOrigin, myWidth, myHeight);//newImage
         //Create the image
 #if TARGET_OS_IPHONE
-        MCImage *mySubimage  = [MCImage imageWithCGImage:CGImageCreateWithImageInRect(self.fontImage.CGImage, myImageArea)];
+      //  MCImage *mySubimage  = [MCImage imageWithCGImage:CGImageCreateWithImageInRect(self.fontImage.CGImage, myImageArea)];
+        SKTexture * chText = [SKTexture textureWithCGImage:CGImageCreateWithImageInRect(self.fontImage.CGImage, myImageArea)];
 #else
         CGImageSourceRef source;
         source = CGImageSourceCreateWithData((__bridge CFDataRef)[self.fontImage TIFFRepresentation], NULL);
         CGImageRef maskRef =  CGImageSourceCreateImageAtIndex(source, 0, NULL);
-        MCImage *mySubimage  = [[MCImage alloc]initWithCGImage:CGImageCreateWithImageInRect(maskRef, myImageArea) size:myImageArea.size];
+       // MCImage *mySubimage  = [[MCImage alloc]initWithCGImage:CGImageCreateWithImageInRect(maskRef, myImageArea) size:myImageArea.size];
+        SKTexture * chText = [SKTexture textureWithCGImage:CGImageCreateWithImageInRect(maskRef, myImageArea)];
 #endif
         //Add the image to the char's dictionary entry.
         NSMutableDictionary * thisItem = [[NSMutableDictionary alloc]initWithDictionary:ch copyItems:YES];
-        [thisItem setObject:mySubimage forKey:@"Image"];
+        
+        MCLetterSprite * sp = [MCLetterSprite spriteNodeWithTexture:chText];
+    //    [thisItem setObject:chText forKey:@"Image"];
+        [thisItem setObject:sp forKey:@"Sprite"];
         [final setObject:thisItem forKey:chr];
+
     }
     [self.fontDict removeAllObjects];
     [self.fontDict setDictionary:final];
-   // ////NSLog(@"Font info %@",self.fontData);
-//    ////NSLog(@"Font Dict %@",self.fontDict);
+
 }
 
 @end

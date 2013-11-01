@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA773F5C18240448001585ED /* MCFontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AA773F5B18240448001585ED /* MCFontManager.m */; };
 		AAB82F1917ED11630097A027 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F1817ED11630097A027 /* Foundation.framework */; };
 		AAB82F1E17ED11630097A027 /* MCFontMap.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AAB82F1D17ED11630097A027 /* MCFontMap.h */; };
 		AAB82F2717ED11630097A027 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB82F2617ED11630097A027 /* XCTest.framework */; };
@@ -54,6 +55,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA773F5A18240448001585ED /* MCFontManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCFontManager.h; sourceTree = "<group>"; };
+		AA773F5B18240448001585ED /* MCFontManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCFontManager.m; sourceTree = "<group>"; };
 		AAB82F1517ED11630097A027 /* libMCFontMap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMCFontMap.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB82F1817ED11630097A027 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AAB82F1C17ED11630097A027 /* MCFontMap-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MCFontMap-Prefix.pch"; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 				AAB82F1D17ED11630097A027 /* MCFontMap.h */,
 				AAB82F4B17ED13B60097A027 /* MCFont.h */,
 				AAB82F4C17ED13B60097A027 /* MCFont.m */,
+				AA773F5A18240448001585ED /* MCFontManager.h */,
+				AA773F5B18240448001585ED /* MCFontManager.m */,
 				AAB82F4D17ED13B60097A027 /* MCFontMapLabel.h */,
 				AAB82F4E17ED13B60097A027 /* MCFontMapLabel.m */,
 				AAB82F4F17ED13B60097A027 /* MCFontMapReader.h */,
@@ -264,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA773F5C18240448001585ED /* MCFontManager.m in Sources */,
 				AAFE221F17F1F988009A6F22 /* MCLetterSprite.m in Sources */,
 				AAB82F5517ED13B60097A027 /* MCFontMapReader.m in Sources */,
 				AAB82F5417ED13B60097A027 /* MCFontMapLabel.m in Sources */,

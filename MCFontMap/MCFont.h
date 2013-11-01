@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MCFontMapReader.h"
+#import "MCFontManager.h"
 
 #ifdef MACOS
 #define UIColor NSColor
@@ -18,12 +19,17 @@
     MCFontMapReader * reader;
     SKColor *_fontColor;
     float _fontColorBlend;
+    
+    NSMutableDictionary * spriteDict;
+    
 }
 
 @property (nonatomic) BOOL kern; //Defaults to YES
 @property (nonatomic,strong) SKColor* fontColor;
 @property (nonatomic) float fontColorBlend;
 
+
+/*Note it is no longer economical to load your own fonts. Use MCFontManager instead*/
 
 /*
  MCFontMap requires font's to be placed in a folder with the extension .fntpkg

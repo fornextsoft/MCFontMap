@@ -20,3 +20,4 @@
 #import "MCFont.h"
 #import "MCFontMapLabel.h"
 #import "MCLetterSprite.h"
+#import "MCFontManager.h"
