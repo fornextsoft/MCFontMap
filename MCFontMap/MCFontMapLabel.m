@@ -675,10 +675,11 @@
     // @synchronized(self.children){
     _string = nil;
     _string = [[NSString alloc]initWithString:string];
-    NSArray * ar = [NSArray arrayWithArray:self.children];
-    [self removeChildrenInArray:ar];
+    [self performSelectorOnMainThread:@selector(removeAllChildren) withObject:Nil waitUntilDone:YES];
     for (SKSpriteNode*theSprite in newString) {
-        [self addChild:theSprite];
+        @synchronized(self.children){
+            [self addChild:theSprite];
+        }
     }
     
     //}
@@ -693,9 +694,12 @@
 {
     super.color = [SKColor clearColor];
     _fontColor= color;
-    for (SKSpriteNode*letter in self.children) {
-        letter.color = color;
-        
+    @synchronized(self.children){
+        NSArray * ar = [NSArray arrayWithArray:self.children];
+        for (SKSpriteNode*letter in ar) {
+            letter.color = color;
+            
+        }
     }
 }
 
@@ -715,9 +719,12 @@
 {
     super.color = [NSColor clearColor];
     _fontColor = color;
-    for (SKSpriteNode*letter in self.children) {
-        letter.color = color;
-        
+    @synchronized(self.children){
+        NSArray * ar = [NSArray arrayWithArray:self.children];
+        for (SKSpriteNode*letter in ar) {
+            letter.color = color;
+            
+        }
     }
 }
 
@@ -738,9 +745,12 @@
 -(void)setColorBlendFactor:(CGFloat)colorBlendFactor
 {
     super.colorBlendFactor = colorBlendFactor;
-    for (SKSpriteNode*letter in self.children) {
-        letter.colorBlendFactor = self.colorBlendFactor;
-        self.color = _fontColor;
+    @synchronized(self.children){
+        NSArray * ar = [NSArray arrayWithArray:self.children];
+        for (SKSpriteNode*letter in ar) {
+            letter.colorBlendFactor = self.colorBlendFactor;
+            self.color = _fontColor;
+        }
     }
 }
 
